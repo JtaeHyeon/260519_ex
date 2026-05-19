@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>플로트와 포지션</title>
+    <style>
+      .float-box {
+        width: 100px;
+        height: 100px;
+        background-color: brown;
+        float: right;
+      }
+      .float-box-right {
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="float-box">박스</div>
+      <div class="float-box" float></div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti nisi
+      doloribus et quod vel ipsum nemo nostrum libero ex. Magnam quisquam porro
+      aliquid sunt necessitatibus minima quasi at quod sit?
+    </div>
+    <div class="container" style="overflow: hidden">
+      <div style="clear: both"></div>
+      <div class="float-box float-box-right">박스1</div>
+      <div class="float-box">박스2</div>
+      <div class="float-box">박스3</div>
+    </div>
+    <hr>
+    <br><br><br><br><br><br><br><br><br><br>
+  </body>
+</html>
