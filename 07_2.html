@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="길거리 농구의 감성과 정교한 컨트롤이 조화된 차세대 농구 시뮬레이션 게임 '호프 마스터 (Hoop Master)' 기획 프리젠테이션입니다. Tailwind CSS v4를 이용한 고해상도 그리드, 플렉스박스 및 포지션 기반의 반응형 인터페이스를 지원합니다." />
+    <title>호프 마스터 : 차세대 농구 게임 기획안</title>
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Tailwind CSS v4 custom configuration (using standard style block or utility overrides if needed, but since it is v4 browser build, standard classes work out of the box) -->
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bi-icons@1.0.0/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Teko:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Noto Sans KR', 'Montserrat', sans-serif;
+        background-color: #070a13;
+        color: #f3f4f6;
+        overflow-x: hidden;
+      }
+      .font-teko {
+        font-family: 'Teko', sans-serif;
+        letter-spacing: 2px;
+      }
+      /* Custom background glow */
+      .bg-glow {
+        filter: blur(80px);
+        opacity: 0.15;
+      }
+      /* Ball Spin Animation class */
+      .ball-spin {
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: translate(-50%, 0) rotate(0deg); }
+        100% { transform: translate(-50%, 0) rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body class="selection:bg-amber-500 selection:text-black">
+    <!-- 백그라운드 네온 오라 (Position Absolute 데코레이션) -->
+    <div class="absolute top-0 left-1/4 w-[300px] h-[300px] bg-amber-500 rounded-full bg-glow -z-10"></div>
+    <div class="absolute top-[800px] right-1/4 w-[400px] h-[400px] bg-blue-600 rounded-full bg-glow -z-10"></div>
+
+    <!-- 1. GNB 헤더 (Flexbox & Sticky & Responsive) -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#070a13]/80 border-b border-zinc-800">
+      <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+        <!-- 로고 (Flex) -->
+        <a href="#" class="flex items-center gap-2 font-teko text-3xl font-bold text-white tracking-wide">
+          <span class="text-amber-500"><i class="bi bi-dribbble"></i></span>
+          HOOP<span class="text-amber-500">MASTER</span>
+        </a>
+
+        <!-- 네비게이션 메뉴 (데스크탑: Flex, 모바일: 숨김 후 반응형 대응) -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="#overview" class="text-zinc-400 hover:text-amber-500 transition-colors">프로젝트 개요</a>
+          <a href="#features" class="text-zinc-400 hover:text-amber-500 transition-colors">핵심 시스템</a>
+          <a href="#shooting-court" class="text-zinc-400 hover:text-amber-500 transition-colors">코트 시뮬레이터</a>
+          <a href="#roster" class="text-zinc-400 hover:text-amber-500 transition-colors">스쿼드 전술</a>
+        </nav>
+
+        <!-- 우측 액션 버튼 (적응형 배지) -->
+        <div class="flex items-center gap-4">
+          <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 font-teko tracking-wider">
+            STREET DIVISION
+          </span>
+          <a href="#feedback" class="px-5 py-2 rounded-full text-xs font-bold bg-amber-500 text-black hover:bg-amber-400 transition-all shadow-lg hover:shadow-amber-500/20">
+            피드백 제안
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. 히어로 배너 (Flex & Text Gradient & Responsive) -->
+    <section class="relative py-20 lg:py-32 px-6">
+      <div class="container mx-auto max-w-5xl text-center flex flex-col items-center justify-center">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-zinc-800 text-amber-500 border border-zinc-700 tracking-wider mb-6">
+          PROJECT: TAENY BASKETBALL
+        </span>
+        <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-tight">
+          길거리 농구의 소울을<br/>
+          <span class="bg-gradient-to-r from-amber-500 via-orange-400 to-amber-300 bg-clip-text text-transparent">스마트폰과 PC로 소화하다</span>
+        </h1>
+        <p class="mt-8 text-zinc-400 text-base md:text-lg max-w-2xl leading-relaxed">
+          스텟의 계산만을 보여주는 게임은 끝났습니다. 실시간 핑거 제스처 기반의 릴리즈 컨트롤러와 수비수와의 거리, 타이밍 체계를 극대화한 신개념 모바일 길거리 농구 게임 기획안.
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-4">
+          <a href="#shooting-court" class="px-8 py-4 bg-amber-500 text-black font-bold rounded-xl hover:bg-amber-400 transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-amber-500/25">
+            <i class="bi bi-play-circle-fill"></i> 실시간 슛 시뮬레이터
+          </a>
+          <a href="#overview" class="px-8 py-4 bg-zinc-900 text-white font-bold rounded-xl border border-zinc-800 hover:bg-zinc-800 transition-all flex items-center justify-center">
+            기획안 다운로드
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 프로젝트 개요 (Responsive Grid / Position Overlay) -->
+    <section class="py-16 px-6 border-t border-zinc-900" id="overview">
+      <div class="container mx-auto max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- 왼쪽 카드: 모형 그래픽 레이아웃 (Position Absolute 활용) -->
+          <div class="lg:col-span-5 relative w-full h-[360px] bg-zinc-950 rounded-3xl border border-zinc-800 overflow-hidden flex items-center justify-center p-6">
+            <div class="absolute inset-0 bg-[radial-gradient(#2d2d2d_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
+            
+            <!-- 코트 하프 라인 서클 묘사 (Absolute Position) -->
+            <div class="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[240px] h-[240px] border border-zinc-800 rounded-full"></div>
+            <div class="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[120px] h-[120px] border border-zinc-800 rounded-full"></div>
+            
+            <!-- 농구 골대 탑뷰 묘사 (Absolute Position) -->
+            <div class="absolute top-10 left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div class="w-16 h-1 bg-white rounded-full"></div>
+              <div class="w-8 h-8 rounded-full border border-red-500 border-t-2 mt-1"></div>
+            </div>
+
+            <!-- 플레이어 위치 매핑 포인터 (Absolute) -->
+            <div class="absolute top-1/2 left-1/3 -translate-x-1/2 flex flex-col items-center">
+              <div class="w-4 h-4 bg-amber-500 rounded-full ring-4 ring-amber-500/20 animate-ping"></div>
+              <span class="mt-2 text-[10px] text-zinc-500 font-teko">PG (TAEHYEON)</span>
+            </div>
+
+            <div class="absolute bottom-1/4 right-1/3 translate-x-1/2 flex flex-col items-center">
+              <div class="w-4 h-4 bg-blue-500 rounded-full ring-4 ring-blue-500/20"></div>
+              <span class="mt-2 text-[10px] text-zinc-500 font-teko">C (DEFENDER)</span>
+            </div>
+
+            <div class="absolute top-3 left-3 bg-zinc-900/90 border border-zinc-800 text-[10px] text-amber-500 font-mono px-2 py-1 rounded">
+              SHOT ZONE MAPPING : COURT A
+            </div>
+          </div>
+
+          <!-- 오른쪽 카드: 텍스트 개요 -->
+          <div class="lg:col-span-7 space-y-6">
+            <span class="text-amber-500 font-teko text-xl font-bold tracking-wider">01. GAME CONCEPT</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white leading-snug">
+              화려한 슬램덩크 이전에,<br/>
+              치열한 외곽 슛의 심리전
+            </h2>
+            <p class="text-zinc-400 leading-relaxed">
+              길거리 농구의 매력은 수비수의 타이트한 블로킹 타이밍을 뺏는 화려한 크로스오버 드리블과 그 직후 이어지는 깔끔한 3점 점퍼에 있습니다. 저희 <strong>'호프 마스터'</strong>는 스와이프 제스처를 통해 드리블 돌파 방향을 지정하고, 릴리즈 포인트에서 손가락을 떼는 손맛을 극대화했습니다.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+              <div class="flex gap-4">
+                <span class="text-2xl text-amber-500 mt-1"><i class="bi bi-bullseye"></i></span>
+                <div>
+                  <h4 class="font-bold text-white mb-1">정교한 릴리즈 게이지</h4>
+                  <p class="text-xs text-zinc-500 leading-normal">릴리즈 타이밍 적중에 따른 슛 그린라이트 구현.</p>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <span class="text-2xl text-blue-500 mt-1"><i class="bi bi-shield-check"></i></span>
+                <div>
+                  <h4 class="font-bold text-white mb-1">다이내믹 수비 저항</h4>
+                  <p class="text-xs text-zinc-500 leading-normal">수비수가 손을 뻗어 방해하는 컨테스트 범위의 물리 계산.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 핵심 피처 카드 영역 (Flex / Responsive Grid) -->
+    <section class="py-16 px-6 bg-zinc-950/40 border-t border-b border-zinc-900" id="features">
+      <div class="container mx-auto max-w-6xl">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-amber-500 font-teko text-xl font-bold tracking-wider">02. SYSTEM SPEC</span>
+          <h2 class="text-3xl font-extrabold text-white mt-1">흥행을 보장할 핵심 스펙</h2>
+          <p class="text-zinc-500 text-sm mt-3">아케이드 조작감과 시뮬레이션의 디테일을 융합한 3대 중심축</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- 카드 1: 물리 충돌 -->
+          <div class="bg-zinc-950 border border-zinc-800 p-8 rounded-2xl flex flex-col justify-between hover:border-amber-500/50 transition-all group">
+            <div>
+              <div class="w-12 h-12 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-xl flex items-center justify-center text-xl mb-6">
+                <i class="bi bi-lightning-charge-fill"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3 group-hover:text-amber-500 transition-colors">실시간 바운스 물리 엔진</h3>
+              <p class="text-zinc-400 text-xs leading-relaxed">
+                농구공의 림/백보드 충돌 지점에 따른 탄성 계수 연산을 실제 고무 재질 값에 가깝게 계산하여 림을 스치고 나오는 튕김 동작을 아주 세련되게 연출합니다.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-zinc-900 flex justify-between items-center text-xs text-zinc-500">
+              <span>바운스 물리 완성도</span>
+              <span class="font-bold text-white">96%</span>
+            </div>
+          </div>
+
+          <!-- 카드 2: 전술 스쿼드 -->
+          <div class="bg-zinc-950 border border-zinc-800 p-8 rounded-2xl flex flex-col justify-between hover:border-amber-500/50 transition-all group">
+            <div>
+              <div class="w-12 h-12 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded-xl flex items-center justify-center text-xl mb-6">
+                <i class="bi bi-diagram-3-fill"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3 group-hover:text-blue-500 transition-colors">3on3 매칭 포메이션</h3>
+              <p class="text-zinc-400 text-xs leading-relaxed">
+                스크린 앤 롤(Pick & Roll), 고앤백(Go & Back) 돌파 등 전술적 조작 패널을 원터치로 활성화하여 AI 팀원들의 연계 움직임을 전술적으로 주도할 수 있습니다.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-zinc-900 flex justify-between items-center text-xs text-zinc-500">
+              <span>연계 전술 패턴</span>
+              <span class="font-bold text-white">12종</span>
+            </div>
+          </div>
+
+          <!-- 카드 3: 하이퍼 그래픽 -->
+          <div class="bg-zinc-950 border border-zinc-800 p-8 rounded-2xl flex flex-col justify-between hover:border-amber-500/50 transition-all group">
+            <div>
+              <div class="w-12 h-12 bg-green-500/10 text-green-500 border border-green-500/20 rounded-xl flex items-center justify-center text-xl mb-6">
+                <i class="bi bi-display-fill"></i>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-3 group-hover:text-green-500 transition-colors">하이퍼 툰 쉐이더 그래픽</h3>
+              <p class="text-zinc-400 text-xs leading-relaxed">
+                역동적인 애니메이션 연출을 돋보이게 해주는 카툰 렌더링을 적용하여 길거리 농구 특유의 그라피티 감성과 힙합 분위기를 120% 시각적으로 표현합니다.
+              </p>
+            </div>
+            <div class="mt-8 pt-4 border-t border-zinc-900 flex justify-between items-center text-xs text-zinc-500">
+              <span>최적화 타겟 프레임</span>
+              <span class="font-bold text-white">120 FPS</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 슛 연습 시뮬레이터 인터랙티브 코트 (Interactive JavaScript & Position 활용) -->
+    <section class="py-16 px-6" id="shooting-court">
+      <div class="container mx-auto max-w-5xl">
+        <div class="text-center max-w-xl mx-auto mb-10">
+          <span class="text-amber-500 font-teko text-xl font-bold tracking-wider">03. INTERACTIVE PRACTICE</span>
+          <h2 class="text-3xl font-extrabold text-white mt-1">자유투 슈팅 시뮬레이터</h2>
+          <p class="text-zinc-500 text-xs mt-2">릴리즈 타이밍을 직접 튜닝하여 공을 골대에 던져 보세요!</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          <!-- 왼쪽: 농구 골대 시뮬레이터 판넬 (Relative/Absolute 레이아웃) -->
+          <div class="lg:col-span-7 bg-[#0b0f19] border border-zinc-800 rounded-3xl p-6 relative overflow-hidden flex flex-col items-center justify-between min-h-[450px]">
+            <!-- 가상의 코트 백보드 및 림 (Absolute Position 구성) -->
+            <div class="w-full relative h-[220px] bg-zinc-950/80 rounded-2xl border border-zinc-800 flex items-center justify-center">
+              
+              <!-- 백보드 -->
+              <div class="absolute top-10 w-[140px] h-[100px] bg-zinc-900/90 border-4 border-white/95 rounded flex items-center justify-center">
+                <!-- 이너 스퀘어 타겟 -->
+                <div class="w-[60px] h-[45px] border-2 border-white/60"></div>
+              </div>
+
+              <!-- 림 (골대 그물) -->
+              <div class="absolute top-[96px] w-[50px] h-[16px] bg-transparent border-4 border-orange-500 rounded-full z-10 flex flex-col justify-end">
+                <!-- 그물 묘사 -->
+                <div class="w-full h-10 border-l border-r border-dashed border-white/50 mx-auto" style="clip-path: polygon(10% 0%, 90% 0%, 75% 100%, 25% 100%);"></div>
+              </div>
+              
+              <!-- 실시간 슈팅 농구공 (Absolute Position) -->
+              <div
+                id="basketball"
+                class="absolute bottom-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-amber-500 rounded-full border-2 border-amber-600 flex items-center justify-center shadow-lg transition-all duration-[800ms] ease-out z-20"
+              >
+                <!-- 농구공 그립 실선 묘사 -->
+                <div class="w-full h-[2px] bg-amber-800 absolute top-1/2 -translate-y-1/2"></div>
+                <div class="h-full w-[2px] bg-amber-800 absolute left-1/2 -translate-x-1/2"></div>
+              </div>
+
+              <!-- 안내문구 -->
+              <div class="absolute bottom-2 left-3 text-[10px] text-zinc-600 font-mono">
+                COURT GRAPHIC : PITCH 3D MOCKUP
+              </div>
+            </div>
+
+            <!-- 하단 슛 조작 및 제어 (Flex) -->
+            <div class="w-full mt-6">
+              <!-- 스코어보드 (Flex) -->
+              <div class="flex justify-between items-center bg-zinc-950/80 border border-zinc-800 px-4 py-2.5 rounded-xl text-xs font-mono text-zinc-400 mb-4">
+                <div>성공: <span id="score" class="text-amber-500 font-bold">0</span></div>
+                <div>시도: <span id="attempts" class="text-white font-bold">0</span></div>
+                <div>성공률: <span id="percentage" class="text-green-500 font-bold">0%</span></div>
+                <div>결과: <span id="shoot-status" class="text-yellow-500 font-bold">대기 중</span></div>
+              </div>
+
+              <!-- 슛 시도 제어 버튼 목록 (Flex) -->
+              <div class="grid grid-cols-3 gap-3">
+                <button onclick="shoot('layup')" class="py-3 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 font-bold rounded-xl hover:bg-zinc-800 active:scale-95 transition-all">
+                  레이업 (성공 90%)
+                </button>
+                <button onclick="shoot('freethrow')" class="py-3 text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 font-bold rounded-xl hover:bg-zinc-800 active:scale-95 transition-all">
+                  자유투 (성공 70%)
+                </button>
+                <button onclick="shoot('threepointer')" class="py-3 text-xs bg-amber-500 text-black font-extrabold rounded-xl hover:bg-amber-400 active:scale-95 transition-all shadow-md hover:shadow-amber-500/10">
+                  3점슛 (성공 45%)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 오른쪽: 슛 가이드라인 및 설명 패널 -->
+          <div class="lg:col-span-5 bg-zinc-950 border border-zinc-800 rounded-3xl p-6 md:p-8 flex flex-col justify-between">
+            <div class="space-y-4">
+              <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-500 text-[10px] font-bold tracking-wider">PHYSICS INTERACTION</span>
+              <h3 class="text-2xl font-bold text-white">슛 릴리즈 타이밍 설계</h3>
+              <p class="text-zinc-400 text-xs leading-relaxed">
+                실제 모바일 농구 게임 기획 상, 슈팅 버튼을 누르고 있으면 선수의 슈팅 폼 애니메이션에 매칭되는 게이지 바가 상승합니다. <strong>최적의 정점(Green Zone)</strong>에서 릴리즈를 할 경우, 슛 능력치와 상관없이 100% 무조건 들어가는 시스템(Perfect Release)을 제안합니다.
+              </p>
+              
+              <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-800/80 space-y-3">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-zinc-400">릴리즈 타이밍 리스크</span>
+                  <span class="text-red-500 font-bold">Medium-High</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-zinc-400">수비 견제도에 따른 페널티</span>
+                  <span class="text-yellow-500 font-bold">최대 30% 감쇄</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-zinc-900">
+              <h4 class="text-xs font-bold text-zinc-400 mb-3">구역별 슛 릴리즈 메커니즘 차이</h4>
+              <ul class="space-y-2 text-[11px] text-zinc-500">
+                <li class="flex items-start gap-1.5"><span class="text-amber-500">•</span> 레이업: 블로킹 타이밍을 뺏는 더블클러치 2차 입력 지원.</li>
+                <li class="flex items-start gap-1.5"><span class="text-amber-500">•</span> 자유투: 수비수 견제가 없어 가장 클래식한 정속 게이지 노출.</li>
+                <li class="flex items-start gap-1.5"><span class="text-amber-500">•</span> 3점슛: 게이지 속도가 1.5배 빨라 신속한 릴리즈 판단 요구.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 전술 포메이션 스쿼드 위젯 (Roster & Stats Widget) -->
+    <section class="py-16 px-6 bg-zinc-950/40 border-t border-zinc-900" id="roster">
+      <div class="container mx-auto max-w-5xl">
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <span class="text-amber-500 font-teko text-xl font-bold tracking-wider">04. SQUAD DESIGN</span>
+          <h2 class="text-3xl font-extrabold text-white mt-1">포지션별 주전 스쿼드 속성</h2>
+          <p class="text-zinc-500 text-xs mt-2">게임 시작 시 주어지는 핵심 스타터 캐릭터 3인의 특화 스탯 기획</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- 캐릭터 1 -->
+          <div class="bg-[#0b0f19] border border-zinc-800 p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-mono text-zinc-500">BACKNUMBER #07</span>
+                <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 text-[10px] font-bold">PG (가드)</span>
+              </div>
+              <h4 class="text-lg font-bold text-white mb-4">태현 (Taehyeon)</h4>
+              <p class="text-zinc-400 text-xs leading-relaxed mb-6">
+                외곽 스피드와 패스 딜리버리에 특화된 포인트 가드. 신속한 크로스오버 후 오픈 찬스 3점슛 구사가 시그니처입니다.
+              </p>
+            </div>
+            
+            <div class="space-y-3 pt-4 border-t border-zinc-900 text-xs">
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-zinc-500">외곽 슛 (3-Point)</span>
+                  <span class="text-amber-500 font-bold">89</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                  <div class="h-full bg-amber-500" style="width: 89%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-zinc-500">스피드 (Speed)</span>
+                  <span class="text-amber-500 font-bold">94</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                  <div class="h-full bg-amber-500" style="width: 94%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 캐릭터 2 -->
+          <div class="bg-[#0b0f19] border border-zinc-800 p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-mono text-zinc-500">BACKNUMBER #23</span>
+                <span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 text-[10px] font-bold">SF (포워드)</span>
+              </div>
+              <h4 class="text-lg font-bold text-white mb-4">제이슨 (Jason)</h4>
+              <p class="text-zinc-400 text-xs leading-relaxed mb-6">
+                돌파 후 미들 레인지 슛과 풀업 점퍼가 위력적인 올라운더 스몰 포워드. 고른 스펙 분배로 전술 가용도가 높습니다.
+              </p>
+            </div>
+            
+            <div class="space-y-3 pt-4 border-t border-zinc-900 text-xs">
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-zinc-500">미들 슛 (Mid-Range)</span>
+                  <span class="text-blue-500 font-bold">85</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                  <div class="h-full bg-blue-500" style="width: 85%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-zinc-500">돌파 속도 (Slash)</span>
+                  <span class="text-blue-500 font-bold">82</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                  <div class="h-full bg-blue-500" style="width: 82%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 캐릭터 3 -->
+          <div class="bg-[#0b0f19] border border-zinc-800 p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-xs font-mono text-zinc-500">BACKNUMBER #99</span>
+                <span class="px-2 py-0.5 rounded bg-green-500/10 text-green-400 text-[10px] font-bold">C (센터)</span>
+              </div>
+              <h4 class="text-lg font-bold text-white mb-4">타이탄 (Titan)</h4>
+              <p class="text-zinc-400 text-xs leading-relaxed mb-6">
+                강력한 골밑 피지컬과 리바운드 장악력을 보유한 수비형 센터. 강력한 블로킹 능력으로 상대 골밑 진입을 봉쇄합니다.
+              </p>
+            </div>
+            
+            <div class="space-y-3 pt-4 border-t border-zinc-900 text-xs">
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-zinc-500">리바운드 (Rebound)</span>
+                  <span class="text-green-500 font-bold">96</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                  <div class="h-full bg-green-500" style="width: 96%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-zinc-500">골밑 슛 (Paint Area)</span>
+                  <span class="text-green-500 font-bold">80</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden">
+                  <div class="h-full bg-green-500" style="width: 80%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 의견 취합 폼 섹션 (Tailwind Form & Responsive Layout) -->
+    <section class="py-16 px-6 border-t border-zinc-900" id="feedback">
+      <div class="container mx-auto max-w-4xl">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 bg-zinc-950 border border-zinc-800 p-8 md:p-12 rounded-3xl items-center">
+          
+          <div class="md:col-span-5 space-y-4">
+            <span class="text-amber-500 font-teko text-xl font-bold tracking-wider">FEEDBACK COLLECTION</span>
+            <h3 class="text-2xl font-extrabold text-white">기획 보강 의견 취합</h3>
+            <p class="text-zinc-400 text-xs leading-relaxed">
+              농구의 조작감 및 릴리즈 타이밍 물리 구성에 대한 참신한 개선 의견이나 투자/제휴 피드백을 전달해 주세요.
+            </p>
+            <div class="flex items-center gap-2 text-xs text-zinc-500">
+              <span><i class="bi bi-clock"></i> 평균 응답 시간: 24시간 이내</span>
+            </div>
+          </div>
+
+          <div class="md:col-span-7">
+            <form onsubmit="submitForm(event)" class="space-y-4" id="opinionForm">
+              <div>
+                <label for="name" class="block text-zinc-400 text-xs mb-1.5">이름 / 파트너명</label>
+                <input required type="text" id="name" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20" placeholder="의견을 전달할 성함 또는 부서명을 입력해 주세요." />
+              </div>
+              
+              <div>
+                <label for="email" class="block text-zinc-400 text-xs mb-1.5">회신용 이메일</label>
+                <input required type="email" id="email" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20" placeholder="name@example.com" />
+              </div>
+
+              <div>
+                <label for="opinion" class="block text-zinc-400 text-xs mb-1.5">건의 및 제휴 제안 내용</label>
+                <textarea required id="opinion" rows="4" class="w-full px-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-xs text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 resize-none" placeholder="물리 엔진, 스탯 분배 및 조작성 등에 대한 피드백을 남겨주시면 면밀히 검토하겠습니다."></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3 bg-amber-500 text-black font-extrabold text-xs rounded-xl hover:bg-amber-400 transition-all shadow-md">
+                기획 제안서 등록하기
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. 푸터 영역 (Semantic Footer) -->
+    <footer class="py-12 bg-[#05070d] border-t border-zinc-950 text-zinc-500 text-xs">
+      <div class="container mx-auto px-6 max-w-5xl flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="font-teko text-2xl font-bold text-white">
+          HOOP<span class="text-amber-500">MASTER</span>
+        </div>
+        <div class="flex gap-6">
+          <a href="#overview" class="hover:text-white transition-colors">기획 개요</a>
+          <a href="#features" class="hover:text-white transition-colors">핵심 스펙</a>
+          <a href="#shooting-court" class="hover:text-white transition-colors">실시간 코트</a>
+        </div>
+        <div>
+          <p class="text-zinc-600">© 2026 HOOP MASTER PROJECT. Designed for Taehyeon Portfolio Pitch.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Interactive script for shooting simulator & validation -->
+    <script>
+      let score = 0;
+      let attempts = 0;
+      let isShooting = false;
+
+      function shoot(type) {
+          if (isShooting) return;
+          isShooting = true;
+
+          const ball = document.getElementById('basketball');
+          const statusText = document.getElementById('shoot-status');
+          const scoreText = document.getElementById('score');
+          const attemptsText = document.getElementById('attempts');
+          const percentageText = document.getElementById('percentage');
+
+          // 농구공 스핀 애니메이션 활성화
+          ball.classList.add('ball-spin');
+
+          // 난이도 및 성공 확률 설정
+          let successChance = 0.5;
+          let targetY = "-130px";  // 슛 높이 조정 (림 도달 높이)
+          
+          if (type === 'layup') {
+              successChance = 0.90;
+              targetY = "-135px";
+          } else if (type === 'freethrow') {
+              successChance = 0.70;
+              targetY = "-130px";
+          } else if (type === 'threepointer') {
+              successChance = 0.45;
+              targetY = "-140px";
+          }
+
+          // 확률 계산
+          const isSuccess = Math.random() < successChance;
+          attempts++;
+
+          // 슛을 던지는 애니메이션 시작 (1단계: 위로 상승 및 수평 이동)
+          statusText.textContent = "슈팅 중...";
+          statusText.className = "text-yellow-500 font-bold";
+
+          // 슛 타입별 궤적 다르게 묘사
+          let translationX = "0px";
+          if (!isSuccess) {
+              // 튕겨나가는 슛은 옆으로 조금 휘게
+              translationX = Math.random() > 0.5 ? "25px" : "-25px";
+          }
+
+          ball.style.transform = `translate(calc(-50% + ${translationX}), ${targetY}) scale(0.6)`;
+
+          // 800ms 후 골대 도달 시 판정
+          setTimeout(() => {
+              ball.classList.remove('ball-spin');
+              
+              if (isSuccess) {
+                  score++;
+                  statusText.textContent = "클린 골! 🏀";
+                  statusText.className = "text-green-500 font-bold";
+                  
+                  // 스위시 통과 동작 (아래로 가라앉음)
+                  ball.style.transform = `translate(calc(-50% + ${translationX}), calc(${targetY} + 25px)) scale(0.55)`;
+                  
+                  // 약간의 진동 효과 후 복귀
+                  setTimeout(() => {
+                      resetBall();
+                  }, 400);
+              } else {
+                  statusText.textContent = "노골 (튕김) ❌";
+                  statusText.className = "text-red-500 font-bold";
+                  
+                  // 튕겨나가는 동작
+                  ball.style.transform = `translate(calc(-50% + ${translationX} * 2), calc(${targetY} - 30px)) scale(0.6)`;
+                  
+                  setTimeout(() => {
+                      resetBall();
+                  }, 400);
+              }
+
+              // 스코어 텍스트 업데이트
+              scoreText.textContent = score;
+              attemptsText.textContent = attempts;
+              
+              // 성공률 업데이트
+              const successRate = Math.round((score / attempts) * 100);
+              percentageText.textContent = `${successRate}%`;
+
+          }, 800);
+      }
+
+      function resetBall() {
+          const ball = document.getElementById('basketball');
+          ball.style.transform = 'translate(-50%, 0) scale(1)';
+          isShooting = false;
+      }
+
+      function submitForm(event) {
+          event.preventDefault();
+          const name = document.getElementById('name').value;
+          const email = document.getElementById('email').value;
+          const opinion = document.getElementById('opinion').value;
+
+          alert(`감사합니다, ${name}님! 농구 게임 피드백 및 기획 아이디어가 정상 수집되었습니다.`);
+          document.getElementById('opinionForm').reset();
+      }
+    </script>
+  </body>
+</html>
