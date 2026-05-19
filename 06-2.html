@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="신개념 차세대 야구 시뮬레이션 게임 '베이스볼 스트라이크(Baseball Strike)' 공식 신작 기획안 및 소개 프리젠테이션 페이지입니다. Bootstrap 5 기반의 그리드, 플렉스박스 및 포지션 레이아웃을 적극 반영하였습니다." />
+    <title>베이스볼 스트라이크 : 차세대 야구 게임 기획안</title>
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Orbitron:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    
+    <style>
+      :root {
+        --bs-primary: #ff4757; /* 핫 오렌지/네온 레드계열 */
+        --bs-secondary: #2f3542;
+        --dark-bg: #090d16;
+        --card-bg: rgba(21, 30, 52, 0.65);
+        --neon-green: #2ed573;
+        --neon-blue: #1e90ff;
+        --neon-glow-primary: 0 0 15px rgba(255, 71, 87, 0.4);
+      }
+
+      body {
+        background-color: var(--dark-bg);
+        color: #f1f2f6;
+        font-family: 'Noto Sans KR', 'Montserrat', sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Premium Font Class */
+      .font-orbitron {
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 1px;
+      }
+
+      /* Custom Glassmorphism Card Style */
+      .glass-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      .glass-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--bs-primary);
+        box-shadow: var(--neon-glow-primary);
+      }
+
+      /* Strike Zone Grid styling */
+      .strike-zone-wrapper {
+        background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.6) 100%);
+      }
+
+      .strike-box {
+        border: 1.5px dashed rgba(255, 255, 255, 0.2);
+        height: 80px;
+        transition: all 0.2s ease;
+      }
+
+      .strike-box:hover {
+        background-color: rgba(255, 71, 87, 0.1);
+        border-color: var(--bs-primary);
+      }
+
+      .pitch-ball {
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        font-size: 11px;
+        box-shadow: 0 0 10px rgba(255,255,255,0.5);
+        animation: pulse 1.5s infinite alternate;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 0 10px rgba(255,255,255,0.4); }
+        100% { transform: scale(1.1); box-shadow: 0 0 20px var(--bs-primary); }
+      }
+
+      /* Sticky/Fixed Elements Override */
+      .sticky-nav {
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+        backdrop-filter: blur(15px);
+        background-color: rgba(9, 13, 22, 0.85) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* Carousel Styling */
+      .carousel-item {
+        height: 480px;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+      }
+
+      .carousel-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(9, 13, 22, 0.2) 0%, rgba(9, 13, 22, 0.95) 100%);
+      }
+
+      /* Utility classes for visual wow factor */
+      .gradient-text {
+        background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--dark-bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--bs-secondary);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--bs-primary);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. GNB 영역 (Navbar, Sticky, Flex 사용) -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-nav py-3">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center font-orbitron fw-bold" href="#">
+          <i class="bi bi-dpad-fill text-danger me-2 fs-4"></i>
+          BASEBALL<span class="text-danger">STRIKE</span>
+        </a>
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#gameNavbar"
+          aria-controls="gameNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="gameNavbar">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+            <li class="nav-item">
+              <a class="nav-link active fw-medium" href="#overview">프로젝트 개요</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-medium" href="#features">핵심 시스템</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-medium" href="#interactive">투구 메커니즘</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-medium" href="#roadmap">기획 로드맵</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-danger px-3 py-2 rounded-pill font-orbitron">PROJECT STRIKE</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 2. 메인 히어로 캐러셀 영역 (Carousel Component, Responsive) -->
+    <header id="mainHero" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#mainHero" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#mainHero" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#mainHero" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <!-- 슬라이드 1: 메인 기획 타이틀 -->
+        <div class="carousel-item active" style="background-image: url('https://picsum.photos/id/180/1600/900');">
+          <div class="carousel-overlay"></div>
+          <div class="carousel-caption d-flex flex-column justify-content-center align-items-start text-start h-100 pb-5 px-3">
+            <span class="badge bg-danger mb-3 px-3 py-2 text-uppercase font-orbitron">Next-Gen Simulation</span>
+            <h1 class="display-3 fw-black font-orbitron text-white leading-sm">PROJECT<br/><span class="gradient-text">BASEBALL STRIKE</span></h1>
+            <p class="lead text-light-muted max-w-xl my-4">
+              실시간 물리 연산과 전략적 투구 매커니즘이 융합된 모바일/PC 크로스 플랫폼 대작 야구 게임 기획안.
+            </p>
+            <div class="d-flex gap-3 mt-2">
+              <a href="#overview" class="btn btn-danger btn-lg px-4 py-3 rounded-pill fw-bold">기획안 상세 보기</a>
+              <button class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#videoModal">
+                <i class="bi bi-play-circle-fill me-2"></i>콘셉트 영상
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- 슬라이드 2: 핵심 비주얼 -->
+        <div class="carousel-item" style="background-image: url('https://picsum.photos/id/43/1600/900');">
+          <div class="carousel-overlay"></div>
+          <div class="carousel-caption d-flex flex-column justify-content-center align-items-start text-start h-100 pb-5 px-3">
+            <span class="badge bg-info mb-3 px-3 py-2 text-uppercase font-orbitron">Ultra Real Graphics</span>
+            <h2 class="display-4 fw-black text-white font-orbitron">압도적인 물리 엔진과<br/>스타디움 현장감</h2>
+            <p class="lead text-light-muted max-w-xl my-4">
+              바람의 세기, 돔구장 온도, 마운드 흙의 경도까지 연산하여 현실의 역동성을 손끝으로 전달합니다.
+            </p>
+            <a href="#features" class="btn btn-info btn-lg text-white px-4 py-3 rounded-pill fw-bold">핵심 강점 분석</a>
+          </div>
+        </div>
+        <!-- 슬라이드 3: 비즈니스 타겟 -->
+        <div class="carousel-item" style="background-image: url('https://picsum.photos/id/73/1600/900');">
+          <div class="carousel-overlay"></div>
+          <div class="carousel-caption d-flex flex-column justify-content-center align-items-start text-start h-100 pb-5 px-3">
+            <span class="badge bg-success mb-3 px-3 py-2 text-uppercase font-orbitron">Global Target Market</span>
+            <h2 class="display-4 fw-black text-white font-orbitron">전세계 팬들을 사로잡을<br/>e스포츠 멀티플레이</h2>
+            <p class="lead text-light-muted max-w-xl my-4">
+              글로벌 원빌드로 실시간 1vs1 매칭이 가능하며, 공평하고 짜릿한 경쟁 심리를 자극하는 랭크전을 제공합니다.
+            </p>
+            <a href="#roadmap" class="btn btn-success btn-lg px-4 py-3 rounded-pill fw-bold">프로젝트 마일스톤</a>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#mainHero" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#mainHero" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </header>
+
+    <!-- 3. 컨셉 개요 및 포지션 배치 영역 (Responsive Grid, Position Absolute/Relative) -->
+    <section class="container py-5 my-3" id="overview">
+      <div class="row align-items-center g-5">
+        <!-- 왼쪽: 게임 특징 일러스트 카드 (Position Absolute 활용) -->
+        <div class="col-lg-6">
+          <div class="position-relative p-4 rounded-4 shadow-lg overflow-hidden strike-zone-wrapper border border-secondary" style="height: 380px;">
+            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-75"></div>
+            <!-- 그래픽 요소 장식 -->
+            <div class="position-absolute top-10 start-10 bg-danger rounded-circle blur-sm" style="width: 120px; height: 120px; opacity: 0.15;"></div>
+            <div class="position-absolute bottom-0 end-0 bg-info rounded-circle" style="width: 150px; height: 150px; opacity: 0.1; filter: blur(40px);"></div>
+            
+            <!-- 포지션으로 배치된 가상의 인터페이스 오버레이 -->
+            <div class="position-absolute w-100 h-100 top-0 start-0 p-4 d-flex flex-column justify-content-between">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="font-orbitron text-danger fw-bold"><i class="bi bi-cpu-fill me-1"></i>PHYSICS ENGINE V2.0</span>
+                <span class="badge bg-secondary font-orbitron">BETA</span>
+              </div>
+              
+              <!-- 야구 경기 오버레이 그래픽 묘사 -->
+              <div class="my-auto text-center position-relative">
+                <div class="border border-secondary border-2 rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 160px; height: 160px; background: rgba(0,0,0,0.4);">
+                  <div class="text-white">
+                    <div class="fs-1 fw-bold text-danger font-orbitron">99%</div>
+                    <div style="font-size: 12px; letter-spacing: 2px;">REAL PHYSICS</div>
+                  </div>
+                </div>
+                <!-- 궤적 묘사 (Absolute 위치 지정) -->
+                <div class="position-absolute top-50 start-50 translate-middle w-100" style="border-top: 2px dashed rgba(255, 71, 87, 0.4); transform: rotate(-15deg); pointer-events: none;"></div>
+                <div class="position-absolute bg-white rounded-circle" style="width: 12px; height: 12px; top: 38%; left: 80%; box-shadow: 0 0 10px white;"></div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center text-secondary" style="font-size: 12px;">
+                <span>PITCHER: RYU (99)</span>
+                <span>BATTER: LEE (88)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 오른쪽: 텍스트 설명 및 기획 요약 -->
+        <div class="col-lg-6">
+          <span class="text-danger font-orbitron fw-bold text-uppercase">PROJECT OUTLINE</span>
+          <h2 class="display-5 fw-bold text-white mt-2 mb-4 leading-sm">이유 있는 차별성,<br/>야구의 본질을 꿰뚫다</h2>
+          <p class="text-secondary mb-4 leading-md">
+            기존 야구 게임들이 단순히 카드 능력치와 스탯 계산식에 의존했다면, <strong>'베이스볼 스트라이크'</strong>는 직접적인 조작과 심리전을 바탕으로 설계되었습니다. 구질에 따른 구속 변화, 그립 조절, 릴리즈 포인트 타이밍 등 실제 마운드에 선 투수의 긴장감을 그대로 구현합니다.
+          </p>
+          
+          <div class="row g-4">
+            <div class="col-sm-6">
+              <div class="d-flex align-items-center gap-3">
+                <div class="bg-danger-subtle text-danger p-3 rounded-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                  <i class="bi bi-suit-spade-fill fs-4"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">리얼 심리전</h6>
+                  <p class="text-muted small mb-0">투수와 타자 간의 수싸움</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="d-flex align-items-center gap-3">
+                <div class="bg-info-subtle text-info p-3 rounded-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                  <i class="bi bi-controller fs-4"></i>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">정교한 조작</h6>
+                  <p class="text-muted small mb-0">밀어치기, 당겨치기의 완벽 제어</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 핵심 시스템 영역 (Flex 및 Responsive Card) -->
+    <section class="bg-black py-5 border-top border-bottom border-secondary" id="features">
+      <div class="container py-4">
+        <div class="text-center mb-5">
+          <span class="text-danger font-orbitron fw-bold">THREE PILLARS</span>
+          <h2 class="display-6 fw-bold text-white mt-2">게임의 핵심 3대 시스템</h2>
+          <p class="text-muted">프로젝트의 가치와 흥행을 책임질 핵심 시스템 사양</p>
+        </div>
+
+        <div class="row g-4">
+          <!-- 카드 1: 물리연산 -->
+          <div class="col-md-4">
+            <div class="card glass-card h-100 p-4">
+              <div class="card-body d-flex flex-column justify-content-between p-0">
+                <div>
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <span class="text-danger fs-1"><i class="bi bi-lightning-charge-fill"></i></span>
+                    <span class="badge bg-danger-subtle text-danger font-orbitron">PHYSICS</span>
+                  </div>
+                  <h4 class="card-title fw-bold text-white mb-3">하이브리드 충돌 엔진</h4>
+                  <p class="card-text text-secondary small leading-md">
+                    공의 회전 방향, 타격 각도, 배트의 스윗스팟 진입 속도 등을 초당 120프레임으로 역학 시뮬레이션하여 매 타석마다 고유한 타구 궤적을 실시간으로 산출합니다.
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-top border-secondary">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted small">현실성 반영률</span>
+                    <span class="text-danger font-orbitron fw-bold">98.9%</span>
+                  </div>
+                  <div class="progress mt-2" style="height: 6px;">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 98%;" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 카드 2: 매니지먼트 -->
+          <div class="col-md-4">
+            <div class="card glass-card h-100 p-4">
+              <div class="card-body d-flex flex-column justify-content-between p-0">
+                <div>
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <span class="text-info fs-1"><i class="bi bi-people-fill"></i></span>
+                    <span class="badge bg-info-subtle text-info font-orbitron">TACTICAL</span>
+                  </div>
+                  <h4 class="card-title fw-bold text-white mb-3">AI 전술 코칭 보드</h4>
+                  <p class="card-text text-secondary small leading-md">
+                    클럽 매니지먼트 모드에서 최적의 주전/후보 라인업 시너지를 추천하며, 상대 투수의 강점 구질에 즉각 대응하는 대타 투입 타이밍 및 시프트 추천 AI 시스템을 탑재합니다.
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-top border-secondary">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted small">전술 가용수</span>
+                    <span class="text-info font-orbitron fw-bold">2,400+ 패턴</span>
+                  </div>
+                  <div class="progress mt-2" style="height: 6px;">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 카드 3: 플랫폼 -->
+          <div class="col-md-4">
+            <div class="card glass-card h-100 p-4">
+              <div class="card-body d-flex flex-column justify-content-between p-0">
+                <div>
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <span class="text-success fs-1"><i class="bi bi-cloud-arrow-up-fill"></i></span>
+                    <span class="badge bg-success-subtle text-success font-orbitron">CROSS</span>
+                  </div>
+                  <h4 class="card-title fw-bold text-white mb-3">크로스-플레이 원빌드</h4>
+                  <p class="card-text text-secondary small leading-md">
+                    PC에서는 정교한 마우스 그립 조작과 키보드 연계 타격, 모바일/태블릿 터치 디바이스에서는 직관적인 제스처 드래그 앤 드롭을 지원하는 완성형 크로스 플랫폼 대전을 구현합니다.
+                  </p>
+                </div>
+                <div class="mt-4 pt-3 border-top border-secondary">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted small">동기화 프레임</span>
+                    <span class="text-success font-orbitron fw-bold">60 FPS 고정</span>
+                  </div>
+                  <div class="progress mt-2" style="height: 6px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 투구 메커니즘 인터랙티브 데모 (Grid / Position / Interactive JS 활용) -->
+    <section class="container py-5 my-5" id="interactive">
+      <div class="text-center mb-5">
+        <span class="text-danger font-orbitron fw-bold">TACTICAL DEMO</span>
+        <h2 class="display-6 fw-bold text-white mt-2">직관적 투구 컨트롤러 데모</h2>
+        <p class="text-muted">실제 게임 속 스트라이크 존 타겟팅 및 구종 변화 원리 시뮬레이션</p>
+      </div>
+
+      <div class="row align-items-stretch g-4">
+        <!-- 왼쪽: 스트라이크 존 그래픽 인터페이스 (Position-Relative/Absolute 대거 사용) -->
+        <div class="col-lg-6">
+          <div class="p-5 rounded-4 bg-dark border border-secondary d-flex flex-column justify-content-center align-items-center" style="min-height: 420px;">
+            <h5 class="text-white font-orbitron mb-4"><i class="bi bi-crosshair text-danger me-2"></i>STRIKE ZONE TARGETING</h5>
+            
+            <!-- 스트라이크 존 프레임 -->
+            <div class="position-relative border border-3 border-white rounded-3 shadow strike-zone-wrapper" style="width: 260px; height: 320px;">
+              <!-- 9분할 격자 실선 표현 (Flex 사용) -->
+              <div class="h-100 w-100 d-flex flex-column">
+                <div class="d-flex flex-fill border-bottom border-secondary border-opacity-25">
+                  <div class="flex-fill border-end border-secondary border-opacity-25 strike-box" onclick="selectZone('상단 왼쪽')"></div>
+                  <div class="flex-fill border-end border-secondary border-opacity-25 strike-box" onclick="selectZone('상단 중앙')"></div>
+                  <div class="flex-fill strike-box" onclick="selectZone('상단 오른쪽')"></div>
+                </div>
+                <div class="d-flex flex-fill border-bottom border-secondary border-opacity-25">
+                  <div class="flex-fill border-end border-secondary border-opacity-25 strike-box" onclick="selectZone('중단 왼쪽')"></div>
+                  <div class="flex-fill border-end border-secondary border-opacity-25 strike-box" onclick="selectZone('정중앙')"></div>
+                  <div class="flex-fill strike-box" onclick="selectZone('중단 오른쪽')"></div>
+                </div>
+                <div class="d-flex flex-fill">
+                  <div class="flex-fill border-end border-secondary border-opacity-25 strike-box" onclick="selectZone('하단 왼쪽')"></div>
+                  <div class="flex-fill border-end border-secondary border-opacity-25 strike-box" onclick="selectZone('하단 중앙')"></div>
+                  <div class="flex-fill strike-box" onclick="selectZone('하단 오른쪽')"></div>
+                </div>
+              </div>
+
+              <!-- 가상 피칭 포인트 1: 패스트볼 (Position Absolute) -->
+              <div
+                class="position-absolute translate-middle bg-danger rounded-circle d-flex align-items-center justify-content-center text-white font-orbitron fw-bold border border-light pitch-ball"
+                style="top: 20%; left: 75%;"
+                onclick="triggerPitch('fastball')"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="직구 선택: 152km/h 강한 구위"
+              >
+                FF
+              </div>
+
+              <!-- 가상 피칭 포인트 2: 슬라이더 (Position Absolute) -->
+              <div
+                class="position-absolute translate-middle bg-primary rounded-circle d-flex align-items-center justify-content-center text-white font-orbitron fw-bold border border-light pitch-ball"
+                style="top: 80%; left: 20%;"
+                onclick="triggerPitch('slider')"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="슬라이더 선택: 우타자 바깥쪽 슬라이더"
+              >
+                SL
+              </div>
+
+              <!-- 가상 피칭 포인트 3: 체인지업 (Position Absolute) -->
+              <div
+                class="position-absolute translate-middle bg-warning rounded-circle d-flex align-items-center justify-content-center text-dark font-orbitron fw-bold border border-light pitch-ball"
+                style="top: 50%; left: 50%;"
+                onclick="triggerPitch('changeup')"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="체인지업 선택: 타이밍을 뺏는 완벽한 커브종"
+              >
+                CH
+              </div>
+            </div>
+            <p class="text-secondary small mt-3 mb-0">스트라이크 존 격자 또는 피칭 기호를 눌러 투구 속성을 확인하세요.</p>
+          </div>
+        </div>
+
+        <!-- 오른쪽: 조작 가이드 및 제어 패널 (Flex 레이아웃 정렬) -->
+        <div class="col-lg-6">
+          <div class="p-4 p-md-5 rounded-4 bg-dark border border-secondary d-flex flex-column justify-content-between h-100">
+            <div>
+              <span class="badge bg-danger mb-3 px-3 py-2 font-orbitron">PITCHER INTERFACE</span>
+              <h3 class="text-white fw-bold mb-3">구종별 투구 궤적 피드백</h3>
+              <p class="text-secondary">
+                마운드에서 구사 가능한 시그니처 구종을 실시간으로 셋업합니다. 각 구종마다 타자의 타이밍 게이지가 변화하며, 투수의 그립 피로도에 따라 구속 감퇴율이 적용됩니다.
+              </p>
+              
+              <!-- 동적 인터랙티브 패널 정보 -->
+              <div class="p-3 rounded bg-black bg-opacity-50 border border-secondary border-opacity-50 my-4" id="pitchFeedbackPanel">
+                <h5 class="text-danger fw-bold font-orbitron mb-2" id="feedbackTitle"><i class="bi bi-info-circle-fill me-2"></i>구종을 클릭해 주세요</h5>
+                <p class="text-light mb-0 small" id="feedbackDesc">
+                  스트라이크 존의 알약 모양 피칭 지점을 누르면, 해당 구종의 설계 상세 사양과 릴리즈 리스크가 이곳에 표기됩니다.
+                </p>
+              </div>
+            </div>
+
+            <!-- 하단 아코디언 컴포넌트: 구종 리스트 상세 설명 -->
+            <div class="accordion accordion-dark" id="pitchingAccordion">
+              <div class="accordion-item bg-transparent border-secondary text-white">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed bg-transparent text-white fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    직구 (Four-Seam Fastball)
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#pitchingAccordion">
+                  <div class="accordion-body text-secondary small">
+                    최고 시속 150km 중후반을 형성하는 포심 패스트볼입니다. 회전수가 높아 타자의 배트가 공 아래를 지나갈 확률이 매우 높으며 스태미나 소모가 낮습니다.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item bg-transparent border-secondary text-white">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed bg-transparent text-white fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    슬라이더 (Slider)
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#pitchingAccordion">
+                  <div class="accordion-body text-secondary small">
+                    우타자 기준 바깥쪽으로 날카롭게 꺾이는 횡변화 1순위 구종입니다. 타석 우측 스트라이크 라인 경계선을 노릴 때 최대의 헛스윙률을 자랑합니다.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item bg-transparent border-secondary text-white">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed bg-transparent text-white fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    서클 체인지업 (Circle Changeup)
+                  </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#pitchingAccordion">
+                  <div class="accordion-body text-secondary small">
+                    직구와 동일한 팔 회전 궤적에서 속도 차이를 두어 헛스윙을 유도하는 타이밍 탈취 무기입니다. 릴리즈가 약간 빗나갈 경우 실투(홈런 위기)의 리스크가 큽니다.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 개발 로드맵 및 피드백 폼 (Roadmap & Form 컴포넌트) -->
+    <section class="bg-black py-5 border-top border-secondary" id="roadmap">
+      <div class="container py-4">
+        <div class="row g-5">
+          <!-- 왼쪽: 기획 일정 로드맵 (마일스톤 구성) -->
+          <div class="col-lg-6">
+            <span class="text-danger font-orbitron fw-bold">MILESTONES</span>
+            <h2 class="display-6 fw-bold text-white mt-2 mb-4">출시 및 개발 타임라인</h2>
+            
+            <div class="d-flex flex-column gap-4 mt-2">
+              <!-- 단계 1 -->
+              <div class="p-3 rounded glass-card">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h6 class="fw-bold text-white mb-0">Phase 1: 물리 충돌 엔진 테스트</h6>
+                  <span class="badge bg-success">완료</span>
+                </div>
+                <p class="text-secondary small mb-0">
+                  그립 컨트롤 메커니즘 1차 빌드 완성을 완료하고, 프레임 동기화 기술 특허 등록 단계에 와 있습니다.
+                </p>
+              </div>
+
+              <!-- 단계 2 -->
+              <div class="p-3 rounded glass-card border-danger">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h6 class="fw-bold text-white mb-0">Phase 2: 포커스 그룹 베타 테스트 (FGT)</h6>
+                  <span class="badge bg-danger animate-pulse">진행 중</span>
+                </div>
+                <p class="text-secondary small mb-0">
+                  야구 동호인 및 모바일 야구 게임 전문 유저층 대상 클로즈드 베타 테스트를 기획하고 있습니다. (현재 2026년 하반기 목표)
+                </p>
+              </div>
+
+              <!-- 단계 3 -->
+              <div class="p-3 rounded glass-card">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h6 class="fw-bold text-white mb-0">Phase 3: 얼리 억세스 및 글로벌 론칭</h6>
+                  <span class="badge bg-secondary">대기</span>
+                </div>
+                <p class="text-secondary small mb-0">
+                  한국, 일본, 미국 대만 리그 라이선스 계약 조율 후 스팀(Steam) 및 모바일 양대 마켓 동시 얼리억세스 예정.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 오른쪽: 투자/베타신청 및 의견 수집 폼 (Bootstrap Form, Validation UI) -->
+          <div class="col-lg-6">
+            <div class="p-4 p-md-5 rounded-4 bg-dark border border-secondary">
+              <h3 class="text-white fw-bold mb-3">의견 전달 및 베타 신청</h3>
+              <p class="text-secondary small">
+                본 프로젝트 기획안에 대한 귀한 피드백을 수집하여 더 강렬한 손맛의 야구 게임을 설계해 나가겠습니다.
+              </p>
+              
+              <form class="needs-validation mt-4" novalidate id="betaForm" onsubmit="handleFormSubmit(event)">
+                <div class="mb-3">
+                  <label for="userName" class="form-label text-light small fw-bold">성함 / 제휴사명</label>
+                  <input type="text" class="form-control bg-black border-secondary text-white" id="userName" placeholder="성함 또는 기업명을 입력하세요" required />
+                  <div class="invalid-feedback">성함 또는 기업명을 필수로 기재해 주세요.</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="userEmail" class="form-label text-light small fw-bold">이메일 주소</label>
+                  <input type="email" class="form-control bg-black border-secondary text-white" id="userEmail" placeholder="name@example.com" required />
+                  <div class="invalid-feedback">올바른 이메일 주소를 입력해 주세요.</div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="feedbackType" class="form-label text-light small fw-bold">문의 및 참여 유형</label>
+                  <select class="form-select bg-black border-secondary text-white" id="feedbackType" required>
+                    <option value="" disabled selected>유형을 선택하세요</option>
+                    <option value="beta">클로즈드 베타 테스트 신청</option>
+                    <option value="investment">기획 제휴 및 투자 문의</option>
+                    <option value="opinion">순수 기획 개선안 제안</option>
+                  </select>
+                  <div class="invalid-feedback">유형을 반드시 선택해 주세요.</div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="userOpinion" class="form-label text-light small fw-bold">제안 및 문의 내용</label>
+                  <textarea class="form-control bg-black border-secondary text-white" id="userOpinion" rows="4" placeholder="게임 기획에 바라는 점이나 피드백을 편하게 남겨주세요." required></textarea>
+                  <div class="invalid-feedback">의견 내용을 기재해 주세요.</div>
+                </div>
+
+                <button type="submit" class="btn btn-danger w-100 py-3 rounded-pill fw-bold font-orbitron">SUBMIT PROPOSAL</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 모달 컴포넌트: 콘셉트 영상 팝업 (Modal Component) -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark border-secondary">
+          <div class="modal-header border-secondary">
+            <h5 class="modal-title text-white font-orbitron fw-bold" id="videoModalLabel">PROJECT CONCEPT ART</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-0">
+            <!-- 가상의 플레이어 영역 -->
+            <div class="ratio ratio-16x9">
+              <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Concept Video" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="modal-footer border-secondary">
+            <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. 푸터 영역 (Semantic Footer, Responsive) -->
+    <footer class="bg-black py-5 border-top border-secondary">
+      <div class="container text-center">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-4">
+          <div class="font-orbitron fw-bold text-white fs-4">
+            BASEBALL<span class="text-danger">STRIKE</span>
+          </div>
+          <div class="d-flex gap-4">
+            <a href="#overview" class="text-secondary text-decoration-none hover-text-white">프로젝트 개요</a>
+            <a href="#features" class="text-secondary text-decoration-none hover-text-white">핵심 시스템</a>
+            <a href="#interactive" class="text-secondary text-decoration-none hover-text-white">투구 매커니즘</a>
+          </div>
+        </div>
+        <hr class="border-secondary opacity-25" />
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 text-secondary small">
+          <p class="mb-0">© 2026 BASEBALL STRIKE PROJECT. All rights reserved.</p>
+          <p class="mb-0">Designed by Taehyeon Portfolio Pitch Deck.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Interactive script for Demo & Validation -->
+    <script>
+      // Tooltip 활성화
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+      // 투구 클릭 이벤트 처리 함수
+      function triggerPitch(pitchType) {
+          const panel = document.getElementById('pitchFeedbackPanel');
+          const title = document.getElementById('feedbackTitle');
+          const desc = document.getElementById('feedbackDesc');
+
+          panel.style.transform = 'scale(0.98)';
+          panel.style.opacity = '0.5';
+
+          setTimeout(() => {
+              if (pitchType === 'fastball') {
+                  title.innerHTML = '<i class="bi bi-lightning-fill text-danger me-2"></i>포심 패스트볼 (Four-Seam Fastball)';
+                  title.className = 'text-danger fw-bold font-orbitron mb-2';
+                  desc.innerHTML = '<strong>구속:</strong> 152 km/h<br/><strong>특징:</strong> 극대화된 백스핀으로 타자가 인식하기엔 공이 살짝 떠오르는 느낌(라이징 패스트볼)을 줍니다. 하이 패스트볼로 헛스윙을 유도하는 설계에 최적화되어 있습니다.';
+              } else if (pitchType === 'slider') {
+                  title.innerHTML = '<i class="bi bi-arrow-right-left text-primary me-2"></i>종/횡 슬라이더 (Slider)';
+                  title.className = 'text-primary fw-bold font-orbitron mb-2';
+                  desc.innerHTML = '<strong>구속:</strong> 138 km/h<br/><strong>특징:</strong> 정통 횡변화 계열로, 우타자의 아웃코스 경계라인으로 회전하다 홈플레이트 바로 앞에서 극적으로 꺾여 떨어집니다. 코너워크 게이지 적중 시 가장 효과적인 결정을 내려줍니다.';
+              } else if (pitchType === 'changeup') {
+                  title.innerHTML = '<i class="bi bi-clock-history text-warning me-2"></i>서클 체인지업 (Circle Changeup)';
+                  title.className = 'text-warning fw-bold font-orbitron mb-2';
+                  desc.innerHTML = '<strong>구속:</strong> 133 km/h<br/><strong>특징:</strong> 직구와 완전히 흡사한 그립 모션을 지녔으나 홈 플레이트 근처에서 급격한 중력 강하가 이루어집니다. 타자의 히팅 타이밍 윈도우를 크게 흔드는 데 결정적입니다.';
+              }
+              panel.style.transform = 'scale(1)';
+              panel.style.opacity = '1';
+          }, 150);
+      }
+
+      // 스트라이크 격자 클릭 시 피드백
+      function selectZone(zoneName) {
+          const panel = document.getElementById('pitchFeedbackPanel');
+          const title = document.getElementById('feedbackTitle');
+          const desc = document.getElementById('feedbackDesc');
+
+          panel.style.transform = 'scale(0.98)';
+          panel.style.opacity = '0.5';
+
+          setTimeout(() => {
+              title.innerHTML = `<i class="bi bi-geo-alt-fill text-white me-2"></i>존 선택: ${zoneName}`;
+              title.className = 'text-white fw-bold font-orbitron mb-2';
+              desc.innerHTML = `<strong>목표 영역:</strong> 스트라이크 존 <strong>[${zoneName}]</strong> 구역 타겟 설정.<br/>해당 구역은 우타자의 몸쪽 혹은 바깥쪽 사각지대일 가능성이 큽니다. 해당 위치로 투구 시 실투(행잉 볼) 위험도를 최소화하기 위해 릴리즈 타겟 게이지 조절이 필연적입니다.`;
+              panel.style.transform = 'scale(1)';
+              panel.style.opacity = '1';
+          }, 150);
+      }
+
+      // Form validation 처리
+      function handleFormSubmit(event) {
+          event.preventDefault();
+          const form = event.target;
+
+          if (!form.checkValidity()) {
+              event.stopPropagation();
+              form.classList.add('was-validated');
+          } else {
+              // 폼 제출 완료 알림창
+              alert('성공적으로 접수되었습니다! 베이스볼 스트라이크 프로젝트 기획 피드백 전달에 감사드립니다.');
+              form.reset();
+              form.classList.remove('was-validated');
+          }
+      }
+    </script>
+  </body>
+</html>
