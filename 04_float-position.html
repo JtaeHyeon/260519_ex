@@ -14,6 +14,36 @@
       .float-box-right {
         float: right;
       }
+      .container {
+        width: 200px;
+        height: 200px;
+        border: 2px solid black;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+      }
+      .static {
+        background-color: gray;
+      }
+      .relative {
+        background-color: teal;
+        position: relative;
+        top: 12px;
+        left: 12px;
+      }
+      .absolute {
+        background-color: pink;
+        position: absolute;
+        top: 12px;
+        left: 12px;
+      }
+      .fixed {
+        position: fixed;
+        background-color: orange;
+        top: 24px;
+        left:16px;
+      }
     </style>
   </head>
   <body>
@@ -30,7 +60,36 @@
       <div class="float-box">박스2</div>
       <div class="float-box">박스3</div>
     </div>
-    <hr>
-    <br><br><br><br><br><br><br><br><br><br>
+    <hr />
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+    <h3>Position</h3>
+    <div style="position: relative">
+      <div class="box static">
+        static
+        <div class="box absolute">absolute[2]</div>
+      </div>
+      <div class="box relative">
+        relative
+        <div class="box absolute">absolute[3]</div>
+      </div>
+      <div class="box absolute">
+        absolute
+        <div class="box absolute">absolute[4]</div>
+      <div class="box fixed">
+        absolute
+        <div class="box absolute">absolute[5]</div>
+      </div>
+    </div>
+    <div style="
+        position: sticky; 
+        width: 100%; 
+        top: 10px;
+        height: 24px; 
+        background-color: aqua;"
+    >
+        sticky
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   </body>
 </html>
