@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flex</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .flex-container {
+        display: flex;
+        width: 100%;
+        padding: 24px;
+        border:1px solid gray;
+        /* background-color: aqua; */
+      }
+      /* > 아래에 있는 * 모든 것에 대해 */
+      .flex-container > * {
+        width: 64px;
+        /* height: 64px; */
+        border: 1px solid red;
+        background-color: beige;
+        /* margin: 16px; */
+      }
+      .direction-column {
+        flex-direction: row-reverse;
+        height: 500px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <!-- flexbox: display flex로 감싸주면 그 아래 있는 요소들은 flex item-->
+    <div class="flex-container">
+      <!-- flex item: inline, block 다 무시-->
+      <div>div</div>
+      <span>span</span>
+      <p>p</p>
+    </div>
+    <!-- justify/aling | content나 flex items를 정렬-->
+    <!-- main/cross -> main 정렬 :justify - content-->
+    <!-- cross 정렬 : align-items -->
+    <!-- cross AI-->
+    <div class="flex-container" style="justify-content: space-evenly">
+    <div>div</div>
+    <span>span</span>
+    <p>p</p>
+    </div>
+    <div class="flex-container" style="justify-content: space-between">
+    <div>div</div>
+    <span>span</span>
+    <p>p</p>
+    </div>
+    <div class="flex-container" style="justify-content: space-around">
+    <div>div</div>
+    <span>span</span>
+    <p>p</p>
+    </div>
+    <hr>
+    <div class="flex-container direction-column" style="justify-content: space-between; ">
+    <div>div</div>
+    <span>span</span>
+    <p>p</p>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br>
+
+    <!-- cross axis -> align items -->
+     <!-- flex wrap + row/column item 배치 -->
+    <div 
+        class="flex-container"
+        style="height:200px;align-items: stretch;">
+        <div>div</div>
+        <span>span</span>
+        <p>p</p>
+    </div>
+    <!-- wrap -->
+     <!-- width 지정되어 있다면 일반 flexbox는 overflow됨. -->
+
+     <div 
+        class="flex-container"
+        style="flex-wrap:wrap;"
+     >
+        <div style = "width:200px;">
+            11Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus ad blanditiis quam totam dignissimos aliquid harum natus eius voluptatem officiis praesentium reprehenderit consequatur ipsa quaerat nesciunt, atque quo iste quas!
+        </div>
+        <div style = "width:200px;">
+            22Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus ad blanditiis quam totam dignissimos aliquid harum natus eius voluptatem officiis praesentium reprehenderit consequatur ipsa quaerat nesciunt, atque quo iste quas!
+        </div>
+        <div style = "width:200px;">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus ad blanditiis quam totam dignissimos aliquid harum natus eius voluptatem officiis praesentium reprehenderit consequatur ipsa quaerat nesciunt, atque quo iste quas!
+        </div>
+     </div>
+     <!-- flex 겹침(2차원 -->
+      <div style="display: flex; flex-direction: column;">
+        <div style="width: 24px;
+        height: 24px;
+        background-color: aqua;
+        border: 1px solid gray;
+        ">a</div>
+
+      </div>
+  </body>
+</html>
